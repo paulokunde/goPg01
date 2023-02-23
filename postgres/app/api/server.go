@@ -56,6 +56,7 @@ func InstanceServer(store *modelo.ExecuteStore) *Server {
 		g3.POST("/create", server.createFornecedor)
 		g3.POST("/update", server.updateFornecedor)
 		g3.POST("/find", server.findFornecedor)
+		g3.POST("/delete", server.deleteFornecedor)
 	}
 
 	server.router = router

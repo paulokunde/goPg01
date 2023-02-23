@@ -1,45 +1,22 @@
 {{ template "header.html" .}}
 
+<script type="text/javascript" src="/static/js/crud.js"></script>
 
 <script>
-  function pesquisa(txt) {
-    //alert(txt);
-    $.ajax("/fornecedor/search", {
-      processData: true,
-      cache: false,
-      type: "POST",
-      data: JSON.stringify({ nome: txt }),
-      contentType: 'application/json',
-      dataType: "json",
-      success: alert("OK..."),
-      error: alert("Erro")
-    });
-
-  }
-  function create() {
-    var nome = $("#nome").val();
-    console.log("Criando: "+nome);
-
-    var xhr = new XMLHttpRequest();
-    xhr.open("POST","/fornecedor/create");
-    xhr.send(JSON.stringify({nome:nome}));
-    xhr.onreadystatechange = function(evt){
-      if (xhr.readyState === 4){
-        var result = JSON.parse(xhr.responseText);
-        alert(result);
-      }
-      
-      
-    }
-
+   function create() {
+    var data = { nome: $("#nome").val() };
+    createOrUpdate("fornecedor_id", "/fornecedor/create", data);
   }
 
-  function update() {
-
-  }
   function remove() {
-
+    createOrUpdate(" ","/fornecedor/delete",{id:$("#fornecedor_id").val()});
   }
+
+  function update(){
+    var data = { nome: $("#nome").val(),id:$("#fornecedor_id").val() };
+    createOrUpdate("fornecedor_id","/fornecedor/update",data);
+  }
+
 </script>
 
 <form method="post" class="form-control">
@@ -47,17 +24,16 @@
     <h2>Registrar Novo Fornecedor</h2>
     <p>
       <label for="nome">Id</label>
-      <input id="id_fornecedor" name="id_fornecedor" value="{{.fornecedor.ID}}" readonly type="text"
+      <input id="fornecedor_id" name="fornecedor_id" value="{{.fornecedor.ID}}" readonly type="text"
         placeholder="Nome do Fornecedor" class="form-control" />
       <label for="nome">Nome</label>
       <input id="nome" name="nome" value="{{.fornecedor.Nome}}" required="required" type="text"
         placeholder="Nome do Fornecedor" class="form-control" />
     </p>
     <p>
-      <input type="button" id="createBtn" onclick="create()" value="Criar" />
-      <input type="button" ajax:true onclick="update()" value="Atualizar" />
-      <input type="button" ajax:true onclick="remove()" value="Remover" />
-
+      <input type="button" onclick="create()" value="Criar" />
+      <input type="button" onclick="update()" value="Atualizar" />
+      
     </p>
   </div>
 </form>
