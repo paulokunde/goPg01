@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<head>
+  <meta charset="UTF-8" />
+  <title>Formulário de Login</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+  <link rel="stylesheet" type="text/css" href="./css/style.css" />
+</head>
+<body>
+  <div class="container" >
+    <a class="links" id="paralogin"></a>
+    <a class="links" id="paracadastro"></a>
+   
+     
+    <div class="content">      
+      <!--FORMULÁRIO DE Retorno-->
+      <div id="login">
+        <form method="get" action="/"> 
+          <h1>Status Alteração PMSCS</h1> 
+          <p style="text-align:center ;"> 
+                 {{.usuario}}
+          </p>
+          <p>{{.mensagem}}</p>
+          
+          <p> 
+            <input type="submit" value="Novo Login" /> 
+          </p>
+        </form>
+      </div>
+    </div>
+  </div>  
+</body>
+</html>

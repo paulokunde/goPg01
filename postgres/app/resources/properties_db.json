@@ -1,0 +1,4 @@
+{
+    "DbDriver":"postgres",
+    "DbSource":"postgres://postgres:pmscs.123@localhost:30432/infra?sslmode=disable"
+}

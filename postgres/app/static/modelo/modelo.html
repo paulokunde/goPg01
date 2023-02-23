@@ -1,0 +1,47 @@
+{{ template "header.html" .}}
+
+<div class="panel">
+  <form method="post" action="/modelo/find">
+    <div class="input-group">
+      <div class="input-group mb-3">
+        <button type="submit" class="btn btn-outline-primary btn-sm">Pesquisar</button>
+        <input type="search" class="form-control" id="nome" name="nome" value="{{.nome}}" required="required" placeholder="Pesquisa">
+        <input  id="limit" hidden class="form-control" value="{{.limit}}" >
+        <input  id="offset" hidden class="form-control" value="{{.offset}}">
+      </div>
+    </div>
+  </form>
+</div>
+
+<div class="list-group">
+  {{range $modelo := .modelos }}
+  <div class="row">
+    <div class="col">
+      <a id="item" data-bs-toggle="modal" data-bs-target="#janela" data-id="{{$modelo.ID}}" data-nome="{{$modelo.Nome}}" data-marca_id="{{$modelo.MarcaID}}"
+        class="list-group-item ">{{$modelo.Nome}}</a>
+    </div>
+    <div class="col">
+      <a href="/modelo/delete/{{$modelo.ID}}" class="form-label">Deletar</a>
+    </div>
+  </div>
+  {{ end }}
+</div>
+</div>
+
+<!-- Modal Update-->
+
+{{ template "modalHeader.html" .}}
+{{ template "modalModelo.html" .}}
+{{ template "modalFooter.html" .}}
+
+<nav aria-label="Navegação de página exemplo">
+  <ul class="pagination">
+    <li class="page-item"><a class="page-link" href="/modelo/find/?limit={{.limit}}&offset=0&nome={{.nome}}">1</a></li>
+    <li class="page-item"><a class="page-link" href="/modelo/find/?limit={{.limit}}&offset=10&nome={{.nome}}">2</a></li>
+    <li class="page-item"><a class="page-link" href="/modelo/find/?limit={{.limit}}&offset=20&nome={{.nome}}">3</a></li>
+    <li class="page-item"><a class="page-link" href="/modelo/find/?limit={{.limit}}&offset={{.offset}}&nome={{.nome}}">Próximo</a></li>
+  </ul>
+</nav>
+
+
+{{ template "footer.html" .}}

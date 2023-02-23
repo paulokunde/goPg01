@@ -1,0 +1,61 @@
+{{ template "header.html" .}}
+<!-- form create  -->
+<script>
+    $(document).on('click', '.dropdown-menu li a', function () {
+        $('#dropdownMenuButton1').html($(this).html());
+        $('#marca_id').val($(this).data('marca_id'));
+
+    }); 
+</script>
+
+<!-- Pesquisa Marcas -->
+<div class="panel">
+    <form method="post" action="/modelo/listMarcas">
+        <div class="input-group">
+            <div class="input-group mb-3">
+                <!-- drop down-->
+                <div class="dropdown">
+                    <button class="btn btn-outline-primary dropdown-toggle" type="button" id="dropdownMenuButton1"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                        Marcas
+                    </button>
+                    <ul id="selectedMarca" class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                        {{range $marca := .marcas}}
+                        <li><a class="dropdown-item" data-marca_id="{{$marca.ID}}" href="#">{{$marca.Nome}}</a></li>
+                        {{ end }}
+                    </ul>
+                </div>
+                <!-- end dropdown -->
+                <button type="submit" class="btn btn-outline-primary btn-sm">Pesquisar</button>
+                <input type="search" class="form-control" id="nome" name="nome" value="{{.nome}}"
+                    placeholder="Pesquisa">
+                <input type="hidden" id="limit" class="form-control" value="{{.limit}}">
+                <input type="hidden" id="offset" class="form-control" value="{{.offset}}">
+            </div>
+        </div>
+    </form>
+</div>
+
+
+
+<form method="post" class="form-control" action="/modelo/create">
+    <div class="mb-3">
+        <h2>Registrar Novo Modelo</h2>
+        <p>
+            <label for="marca">Nome</label>
+            <input id="marca_id" name="marca_id"  type="text" placeholder="Id da Marca"
+                class="form-control" />
+        </p>
+        <p>
+            <label for="nome">Nome</label>
+            <input id="nome" name="nome" required="required" type="text" placeholder="Nome da Marca"
+                class="form-control" />
+        </p>
+        <p>
+            <input type="submit" value="Registrar" />
+        </p>
+    </div>
+</form>
+
+
+{{ template "footer.html" .}}

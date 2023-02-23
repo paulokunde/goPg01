@@ -1,0 +1,50 @@
+{{ template "header.html" .}}
+</br>
+
+<div class="panel">
+  <form method="post" action="/paginacao">
+    <div class="input-group">
+      <button type="submit" class="btn btn-outline-primary btn-sm">Pesquisar</button>
+      <input type="search" class="form-control" id="nome" name="nome" placeholder="Pesquisa">
+    </div>
+  </form>
+</div>
+</br>
+<div class="list-group">
+  {{range $marca := .marcas }}
+  <div class="row">
+    <div class="col">
+      <a data-bs-toggle="modal" data-bs-target="#janela" data-id="{{$marca.ID}}" data-nome="{{$marca.Nome}}"
+        class="list-group-item list-group-item-action">{{$marca.Nome}}</a>
+    </div>
+    <div class="col">
+      <a href="/marca/delete/{{$marca.ID}}" class="form-label">Deletar</a>
+    </div>
+  </div>
+  {{ end }}
+</div>
+</div>
+
+<!-- Modal Update-->
+
+{{ template "modalHeader.html" .}}
+{{ template "marcaForm.html" .}}
+{{ template "modalFooter.html" .}}
+
+
+<nav aria-label="Navegação de página exemplo">
+  {{$limit := .limit}}
+  {{$offset := .offset}}
+  
+  <ul class="pagination">
+    
+
+    <li class="page-item"><a class="page-link" href="/paginacao/?limit={{$limit}}&offset={{$offset}}&ctrl=prev">Anterior</a></li>
+    <li class="page-item"><a class="page-link" href="/paginacao/?limit={{$limit}}&offset=0&ctrl=0">1</a></li>
+    <li class="page-item"><a class="page-link" href="/paginacao/?limit={{$limit}}&offset=10&ctrl=0">2</a></li>
+    <li class="page-item"><a class="page-link" href="/paginacao/?limit={{$limit}}&offset=20&ctrl=0">3</a></li>
+    <li class="page-item"><a class="page-link" href="/paginacao/?limit={{$limit}}&offset={{$offset}}&ctrl=next">Próximo</a></li>
+  </ul>
+</nav>
+
+{{ template "footer.html" .}}

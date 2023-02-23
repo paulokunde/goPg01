@@ -1,0 +1,36 @@
+#tbVendas, .tbItens{
+  width:100%;
+  border:solid 1px;
+}
+
+#tbVendas thead th, .tbItens thead th{
+  text-align:left;
+}
+
+#tbVendas tr td, .tbItens tr td{
+  border:solid 1px;
+}
+
+#tbVendas tr td:nth-child(1){
+  width:20px;
+}
+
+#tbVendas tbody tr{
+  background:#DCDCDC;
+}
+
+.tbItens tr{
+  background:red;
+}
+
+#tbVendas thead{
+  background:#4682B4;
+}
+
+.linhaItens{
+  display: none;
+}
+
+.tbItens{
+  font-size:12px;
+}

@@ -1,0 +1,131 @@
+package api
+
+import (
+	"net/http"
+
+	"github.com/gin-gonic/gin"
+
+	"app/modelo"
+)
+
+type createMarcaRequestApi struct {
+	Nome string `json:"nome" binding:"required"`
+}
+
+func (server *Server) createMarcaApi(ctx *gin.Context) {
+	var req createMarcaRequestApi
+	err := ctx.ShouldBindJSON(&req)
+	if err != nil {
+		ctx.JSON(http.StatusBadRequest, errorResponse(err))
+	}
+
+	nome := req.Nome
+
+	marca, err := server.store.CreateMarca(ctx, nome)
+	if err != nil {
+		ctx.JSON(http.StatusInternalServerError, errorResponse(err))
+	}
+	ctx.JSON(http.StatusCreated, marca)
+}
+
+type getMarcaRequestApi struct {
+	ID int32 `uri:"id" binding:"required"`
+}
+
+func (server *Server) getMarcaApi(ctx *gin.Context) {
+	var req getMarcaRequestApi
+	err := ctx.ShouldBindUri(&req)
+	if err != nil {
+		ctx.JSON(http.StatusBadRequest, errorResponse(err))
+	}
+	marca, err := server.store.GetMarcaById(ctx, req.ID)
+	if err != nil {
+		ctx.JSON(http.StatusInternalServerError, errorResponse(err))
+	}
+	ctx.JSON(http.StatusOK, marca)
+}
+
+type getMarcaRequestByNameApi struct {
+	Nome string `json:"nome" binding:"required"`
+}
+
+func (server *Server) getMarcaByNameApi(ctx *gin.Context) {
+	var req getMarcaRequestByNameApi
+	err := ctx.ShouldBindJSON(&req)
+	if err != nil {
+		ctx.JSON(http.StatusBadRequest, errorResponse(err))
+	}
+
+	marca, err := server.store.GetMarcaByName(ctx, req.Nome)
+	if err != nil {
+		ctx.JSON(http.StatusInternalServerError, errorResponse(err))
+	}
+	ctx.JSON(http.StatusOK, marca)
+}
+
+type findMarcaRequestByNameApi struct {
+	Nome string `json:"nome" binding:"required"`
+}
+
+func (server *Server) findMarcaByNameApi(ctx *gin.Context) {
+	var req findMarcaRequestByNameApi
+	err := ctx.ShouldBindJSON(&req)
+	if err != nil {
+		ctx.JSON(http.StatusBadRequest, errorResponse(err))
+	}
+
+	marca, err := server.store.FindMarcaByName(ctx, req.Nome+"%")
+	if err != nil {
+		ctx.JSON(http.StatusInternalServerError, errorResponse(err))
+	}
+	ctx.JSON(http.StatusOK, marca)
+}
+
+type deleteMarcaRequestApi struct {
+	ID int32 `uri:"id" binding:"required"`
+}
+
+func (server *Server) deleteMarcaApi(ctx *gin.Context) {
+	var req deleteMarcaRequestApi
+	err := ctx.ShouldBindUri(&req)
+	if err != nil {
+		ctx.JSON(http.StatusBadRequest, errorResponse(err))
+	}
+
+	er := server.store.DeleteMarca(ctx, req.ID)
+	if er != nil {
+		ctx.JSON(http.StatusInternalServerError, errorResponse(err))
+	}
+	ctx.JSON(http.StatusOK, true)
+}
+
+type updadeMarcaRequestApi struct {
+	ID   int32  `json:"id" binding:"required"`
+	Nome string `json:"nome"`
+}
+
+func (server *Server) updateMarcaApi(ctx *gin.Context) {
+	var req updadeMarcaRequestApi
+	err := ctx.ShouldBindJSON(&req)
+	if err != nil {
+		ctx.JSON(http.StatusBadRequest, errorResponse(err))
+	}
+	arg := modelo.UpdateMarcaParams{
+		ID:   req.ID,
+		Nome: req.Nome,
+	}
+
+	marca, err := server.store.UpdateMarca(ctx, arg)
+	if err != nil {
+		ctx.JSON(http.StatusInternalServerError, errorResponse(err))
+	}
+	ctx.JSON(http.StatusOK, marca)
+}
+
+func (server *Server) listMarcasApi(ctx *gin.Context) {
+	marcas, err := server.store.ListMarcas(ctx)
+	if err != nil {
+		ctx.JSON(http.StatusInternalServerError, errorResponse(err))
+	}
+	ctx.JSON(http.StatusOK, marcas)
+}

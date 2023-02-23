@@ -1,0 +1,17 @@
+{{ template "header.html" .}}
+
+        <form method="post" class="form-control" action="/marca/create"> 
+          <div class="mb-3">
+          <h2>Registrar Nova Marca</h2>        
+          <p> 
+            <label for="nome">Nome</label>
+            <input id="nome" name="nome" value="{{.marca.Nome}}" required="required" type="text" placeholder="Nome da Marca" class="form-control" /> 
+          </p>
+          <p> 
+            <input type="submit" value="Registrar" /> 
+          </p>
+          </div>
+        </form>
+
+   
+{{ template "footer.html" .}}

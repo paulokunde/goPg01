@@ -1,0 +1,14 @@
+<!--index.html-->
+
+<!--Embed the header.html template at this location-->
+{{ template "header.html" .}}
+<h4>Erro Ocorreu</h4>
+<h5>
+  {{.erro}}
+</h5>
+<form action="/" class="container">
+  <input type="submit" value="Início">
+</form>
+
+<!--Embed the footer.html template at this location-->
+{{ template "footer.html" .}}
