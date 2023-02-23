@@ -1,0 +1,11 @@
+docker run -it -p 139:139 -p 445:445 -d dperson/samba -p
+
+
+
+sudo docker run -it --name samba -p 139:139 -p 445:445 \
+            -v /path/to/directory:/mount \
+            -d dperson/samba -p
+
+
+docker run -it -p 5139:139 -p 5445:445 --name samba01 -v /home/paulo.kunde/docker/samba-dfs/volume:/mount -d dperson/samba -p -u "paulo;pmscs.123" 
+docker exec -it 7bb25293f9cc bash

@@ -1,0 +1,50 @@
+Dockerfile: para customizar Imagem
+
+para construir nosssa imagem, usa por padrão o Dockerfile, ou -f para especificar outro nome
+$docker build .
+$docker build -t nomeDaMinhaImagem .
+
+OBS:sempre baseado em alguma imagem ex:ubuntu
+FROM  imagem
+
+ARG - Argumentos usados no momento do build
+
+LABEL - Adiciona metadata a imagem
+
+ENV - é uma maneira de definir variaveis de ambiente dentro da nossa imagem.
+
+COPY - Copia arquivos e diretorios  para dentro da Imagem
+ADD - Copia arquivos e diretorios e tambem arquivos TAR e permite copiar arquivos remotos
+
+RUN - Executa um comando, cada RUN gera uma camada diferente, recomendado usar comandos com && .
+
+ENTRYPOINT
+    - Executa um comando na inicialização do container
+    - Princial processo do container
+    - Se esse processo morrer, o container tambem morre.
+
+CMD
+    - Executa um comando na inicialização do container
+    - Se não existir um ENTRYPOINT, podemos colocar tudo no CMD;
+    - Quando tem um comando ENTRYPOINT na imagem, o CMD não pode mais chamar qualquer comando
+    - O CMD passa parametros para o ENTRYPOINT
+    - Quando estou usando ENTRYPOINT e CMD na MESMA imagem não podemos usar o MODO SHELL, teremos que usar o modo EXEC
+    - modo EXEC: ["sh", "-c","echo $PWD"]
+    - modo SHELL: sh -c echo $PWD
+    - podemos ter UM(1) CMD por imagem, caso contrario, somente o ultimo será valido
+     
+VOLUMES - Indica que o diretorio do container será um VOLUME
+
+USER - Define quer o container vai rodar com um usuario especifico
+
+WORKDIR - Indica o diretorio de trabalho, diretório padrão do container
+
+EXPOSE 
+    - Informa ao docker que o container irá escutar nas portas de rede especificadas no tempo de execução
+    - Não publica a porta ao Docker host, deve ser utilizado como efeito de documentação para que a 
+        operação saiba qual a porta deve ser publicada manualmente
+    - Por padrão EXPOSE assume o protocolo TCP, po de ser mudado com EXPOSE 162/udp
+
+HEALTHCHECH
+    - São instruções que dizem ao docker como testar um container e verificar se ele ainda está executando
+

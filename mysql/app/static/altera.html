@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<head>
+  <meta charset="UTF-8" />
+  <title>Alterar Senha PMSCS</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+  <link rel="stylesheet" type="text/css" href="./css/style.css" />
+</head>
+<body>
+  <div class="container" >
+    <a class="links" id="paralogin"></a>
+    <a class="links" id="paracadastro"></a>
+   
+     
+    <div class="content">      
+      <!--FORMULÁRIO DE LOGIN-->
+      <div id="login">
+        <form method="post" action="/altera"> 
+          <h1>Alterar Senha do Domínio</h1> 
+          <p> 
+            <label for="usuario">Usuário</label>
+            <input id="usuario" name="usuario"  type="text" value="{{.usuario}}"/>
+          </p>
+           
+          <p> 
+            <label for="senha">Senha Atual</label>
+            <input id="senha" name="senha" required="required" type="password" placeholder="sua senha" /> 
+          </p>
+
+		      <p> 
+            <label for="novasenha">Nova Senha</label>
+            <input id="novasenha" name="novasenha" required="required" type="password" placeholder="sua nova senha" /> 
+          </p>
+          <p> 
+            <label for="nova">Repita a Nova Senha</label>
+            <input id="nova" name="nova" required="required" type="password" placeholder="sua nova senha" /> 
+          </p>
+          <p> 
+            <input type="submit" value="Alterar" /> 
+          </p>
+          
+        </form>
+      </div>
+    </div>
+  </div>  
+</body>
+</html>

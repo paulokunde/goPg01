@@ -1,0 +1,53 @@
+# rodar docker  usuario normal $usermod -aG docker ${USER}
+#criar e rodar um container: docker compose up -d
+#iniciar todos serviços:docker compose start
+#parar todos serviços:docker compose stop
+#acesso ao container: docker exec -it nomedocontainer bash|sh
+
+
+version: '3'
+services:
+
+  db:
+    image: mariadb
+    container_name: mysql
+    hostname: mysql
+    restart: always
+    environment:
+      MARIADB_DATABASE: infra
+      MARIADB_USER: suporte
+      MARIADB_PASSWORD: pmscs.123
+      MARIADB_ROOT_PASSWORD: pmscs.123
+      MARIADB_ROOT_HOST: '%'
+    volumes:
+      - ./mysql:/var/lib/mysql
+    ports:
+      - "3306:3306"
+    expose:
+      - 3306
+
+    networks:
+      - dbnet
+    #logging:
+    #  driver: syslog
+    #  options:
+    #    syslog-address: "tcp://192.168.0.42:123"
+
+  adminer:
+    image: adminer
+    container_name: adminer
+    hostname: adminer
+    restart: always
+    ports: 
+      - "8088:8080"
+    networks:
+      - dbnet
+
+volumes:
+  pgdata:
+    external: true
+
+networks:
+  dbnet:
+    name: dbnet
+    driver: bridge
