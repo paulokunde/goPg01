@@ -57,7 +57,7 @@ func (server *Server) searchFornecedor(c *gin.Context) {
 		c.Writer.Write(jsonResp)
 	*/
 	tam := len(lista)
-	c.HTML(http.StatusOK, "modelo.html", gin.H{
+	c.HTML(http.StatusOK, "listaFornecedor.html", gin.H{
 		"fornecedores": lista,
 		"msg":          "Retorno:" + strconv.Itoa(tam) + " Itens",
 	})
