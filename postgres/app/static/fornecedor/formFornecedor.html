@@ -3,9 +3,11 @@
 <script type="text/javascript" src="/static/js/utils.js"></script>
 
 <script>
-   function create() {
+   async function create() {
     var data = { nome: $("#nome").val() };
     createOrUpdate("fornecedor_id", "/fornecedor/create", data);
+    await sleep(3000);
+    $("#nome").val("");
   }
 
   function remove() {
@@ -15,6 +17,7 @@
   function update(){
     var data = { nome: $("#nome").val(),id:$("#fornecedor_id").val() };
     createOrUpdate("fornecedor_id","/fornecedor/update",data);
+   
   }
 
 </script>
@@ -31,8 +34,8 @@
         placeholder="Nome do Fornecedor" class="form-control" />
     </p>
     <p>
-      <input type="button" onclick="create()" value="Criar" />
-      <input type="button" onclick="update()" value="Atualizar" />
+      <input type="button" class="btn btn-primary" onclick="create()" value="Criar" />
+     
       
     </p>
   </div>

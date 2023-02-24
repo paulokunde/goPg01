@@ -29,7 +29,7 @@ func (server *Server) formFornecedor(c *gin.Context) {
 
 type NomeParam struct {
 	Nome string `json:"nome" form:"nome" query:"nome"`
-	ID   int32  `json:"id" form:"id" query:"id"`
+	ID   int32  `json:"id" form:"id" query:"id" uri:"id"`
 }
 
 func (server *Server) searchFornecedor(c *gin.Context) {
@@ -58,8 +58,9 @@ func (server *Server) searchFornecedor(c *gin.Context) {
 	*/
 	tam := len(lista)
 	c.HTML(http.StatusOK, "listaFornecedor.html", gin.H{
-		"fornecedores": lista,
-		"msg":          "Retorno:" + strconv.Itoa(tam) + " Itens",
+		"lista": lista,
+		"msg":   "Retorno:" + strconv.Itoa(tam) + " Itens",
+		"nome":  param.Nome,
 	})
 }
 
@@ -86,27 +87,52 @@ func (server *Server) createFornecedor(c *gin.Context) {
 }
 
 func (server *Server) updateFornecedor(c *gin.Context) {
-	var req modelo.UpdateFornecedorParams
-	log.Println("Chamanda a updateForecedor...")
+	var req NomeParam
 
-	err := c.BindJSON(&req)
+	err := c.Bind(&req)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, errorResponse(err))
 	}
 	log.Println("Nome:" + req.Nome)
-	marca, erro := server.store.UpdateFornecedor(c, req)
+
+	param := modelo.UpdateFornecedorParams{
+		ID:   req.ID,
+		Nome: req.Nome,
+	}
+	obj, erro := server.store.UpdateFornecedor(c, param)
 	if erro != nil {
 		c.JSON(http.StatusInternalServerError, errorResponse(erro))
 	}
-	resp, er := json.Marshal(marca)
-	if er != nil {
-		c.JSON(http.StatusInternalServerError, errorResponse(erro))
-	}
-	c.Writer.WriteHeader(200)
-	c.Writer.Write(resp)
+	/*
+		resp, er := json.Marshal(obj)
+		if er != nil {
+			c.JSON(http.StatusInternalServerError, errorResponse(erro))
+		}
+		c.Writer.WriteHeader(200)
+		c.Writer.Write(resp)
+	*/
+
+	c.HTML(http.StatusOK, "listaFornecedor.html", gin.H{
+		"fornecedor": obj,
+		"msg":        "Objeto Atualizado...: id:" + strconv.Itoa(int(obj.ID)) + " Nome:" + obj.Nome,
+		"nome":       obj.Nome,
+	})
 
 }
 func (server *Server) deleteFornecedor(c *gin.Context) {
+	var req NomeParam
+	err := c.ShouldBindUri(&req)
+	if err != nil {
+		c.HTML(http.StatusOK, "error.html", errorResponse(err))
+	}
+
+	er := server.store.DeleteFornecedor(c, req.ID)
+	if er != nil {
+		c.HTML(http.StatusOK, "error.html", errorResponse(er))
+	}
+	c.HTML(http.StatusOK, "listaFornecedor.html", gin.H{
+		"msg": "Registro Deletado - OK",
+	})
 
 }
 

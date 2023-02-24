@@ -1,3 +1,5 @@
+<script type="text/javascript" src="/static/js/utils.js"></script>
+
 <script type="text/javascript">
   $(document).on("click", ".list-group-item", function () {
     $(".modal-body #id").val($(this).data('id'));
@@ -5,9 +7,16 @@
     $(".modal-body #marca_id").val($(this).data('marca_id'))
   });
 
+  function create() {
+    var data = { nome: $("#nome").val() };
+    createOrUpdate("fornecedor_id", "/fornecedor/create", data);
+    sleep(3000);
+    $("#nome").val("");
+  }
+
   function pesquisa(text){
     alert(text);
-    $.post( "localhost:8000/ajax/listMarcas", { nome: text } );
+    //$.post( "localhost:8000/ajax/listMarcas", { nome: text } );
     
   }
 </script>
@@ -58,4 +67,5 @@
         placeholder="ID da Marca" class="form-control" />
     </div>
     </p><button type="submit" value="submit" class="btn btn-primary">Alterar</button></p>
+  </p><button type="button" value="button" onclick="listaMarcas('teste','/modelo/listMarcasJson','{nome:%}')" class="btn btn-primary">ListarAjax</button></p>
   </form>

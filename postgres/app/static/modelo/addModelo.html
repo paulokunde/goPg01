@@ -13,8 +13,11 @@
     <form method="post" action="/modelo/listMarcas">
         <div class="input-group">
             <div class="input-group mb-3">
-                <!-- drop down-->
-                <div class="dropdown">
+              
+                <button type="submit" class="btn btn-outline-primary btn-sm">Pesquisar</button>
+                <input type="search" class="form-control " id="nome" name="nome" value="{{.nome}}" placeholder="Pesquisa">
+                  <!-- drop down-->
+                  <div class="dropdown">
                     <button class="btn btn-outline-primary dropdown-toggle" type="button" id="dropdownMenuButton1"
                         data-bs-toggle="dropdown" aria-expanded="false">
                         Marcas
@@ -26,9 +29,7 @@
                     </ul>
                 </div>
                 <!-- end dropdown -->
-                <button type="submit" class="btn btn-outline-primary btn-sm">Pesquisar</button>
-                <input type="search" class="form-control" id="nome" name="nome" value="{{.nome}}"
-                    placeholder="Pesquisa">
+               <span><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Listagem de Marcas&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p></span>
                 <input type="hidden" id="limit" class="form-control" value="{{.limit}}">
                 <input type="hidden" id="offset" class="form-control" value="{{.offset}}">
             </div>
@@ -43,7 +44,7 @@
         <h2>Registrar Novo Modelo</h2>
         <p>
             <label for="marca">Nome</label>
-            <input id="marca_id" name="marca_id"  type="text" placeholder="Id da Marca"
+            <input id="marca_id" name="marca_id"  type="text" readonly placeholder="Id da Marca"
                 class="form-control" />
         </p>
         <p>

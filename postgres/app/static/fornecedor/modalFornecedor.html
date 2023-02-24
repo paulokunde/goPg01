@@ -1,26 +1,23 @@
+
 <script type="text/javascript">
   $(document).on("click", ".list-group-item", function () {
     $(".modal-body #id").val($(this).data('id'));
     $(".modal-body #nome").val($(this).data('nome'));
-    $(".modal-body #marca_id").val($(this).data('marca_id'))
   });
+
+ 
 </script>
 
-<form id="formModal" method="post" action="/modelo/update" class="form-inline">
-    <div class="form-group">
-      <label for="id" class="form-label">Id:</label>
-      <input id="id" name="id" type="text" placeholder="0"
-        class="form-control" readonly />
-    </div>
-    <div class="form-group">
-      <label for="nome" class="form-label">Nome</label>
-      <input id="nome" name="nome"  required="required" type="text"
-        placeholder="Nome do Modelo" class="form-control" />
-    </div>
-    <div class="form-group">
-      <label for="marca_id" class="form-label">Marca ID</label>
-      <input id="marca_id" name="marca_id"  required="true" type="text"
-        placeholder="ID da Marca" class="form-control" />
-    </div>
-    </p><button type="submit" value="submit" class="btn btn-primary">Alterar</button></p>
-  </form>
+<form id="formModal" method="post" action="/fornecedor/update" class="form-inline">
+  <div class="form-group">
+    <label for="id" class="form-label">Id:</label>
+    <input id="id" name="id" type="text" placeholder="0" class="form-control" readonly />
+  </div>
+  <div class="form-group">
+    <label for="nome" class="form-label">Nome</label>
+    <input id="nome" name="nome" required="required" type="text" placeholder="Nome do Modelo" class="form-control" />
+  </div>
+
+  </p><button type="submit" value="submit" class="btn btn-primary">Alterar</button></p>
+  
+</form>

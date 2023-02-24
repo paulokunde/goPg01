@@ -13,7 +13,7 @@
 </div>
 
 <div class="list-group">
-  {{range $obj := .fornecedores }}
+  {{range $obj := .lista }}
   <div class="row">
     <div class="col">
       <a id="item" data-bs-toggle="modal" data-bs-target="#janela" data-id="{{$obj.ID}}" data-nome="{{$obj.Nome}}"
@@ -33,14 +33,6 @@
 {{ template "modalFornecedor.html" .}}
 {{ template "modalFooter.html" .}}
 
-<nav aria-label="Navegação de página exemplo">
-  <ul class="pagination">
-    <li class="page-item"><a class="page-link" href="/fornecedor/find/?limit={{.limit}}&offset=0&nome={{.nome}}">1</a></li>
-    <li class="page-item"><a class="page-link" href="/fornecedor/find/?limit={{.limit}}&offset=10&nome={{.nome}}">2</a></li>
-    <li class="page-item"><a class="page-link" href="/fornecedor/find/?limit={{.limit}}&offset=20&nome={{.nome}}">3</a></li>
-    <li class="page-item"><a class="page-link" href="/fornecedor/find/?limit={{.limit}}&offset={{.offset}}&nome={{.nome}}">Próximo</a></li>
-  </ul>
-</nav>
 
 
 {{ template "footer.html" .}}

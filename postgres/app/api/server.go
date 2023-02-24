@@ -26,6 +26,7 @@ func InstanceServer(store *modelo.ExecuteStore) *Server {
 	g1 := router.Group("/modelo")
 	{
 		g1.GET("/master", server.formModelo)
+		g1.POST("/listMarcasJson", server.findMarcasForModeloJson)
 		g1.POST("/listMarcas", server.findMarcasForModelo)
 		g1.GET("/add", server.addModelo)
 		g1.POST("/create", server.createModelo)
@@ -56,7 +57,7 @@ func InstanceServer(store *modelo.ExecuteStore) *Server {
 		g3.POST("/create", server.createFornecedor)
 		g3.POST("/update", server.updateFornecedor)
 		g3.POST("/find", server.findFornecedor)
-		g3.POST("/delete", server.deleteFornecedor)
+		g3.GET("/delete/:id", server.deleteFornecedor)
 	}
 
 	server.router = router

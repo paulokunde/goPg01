@@ -19,4 +19,24 @@
     }
   }
 
+  function listaMarcas(ul,url,data){
+    var xhr = new XMLHttpRequest();
+    let obj;
+    xhr.open("POST",url);
+    xhr.send(JSON.stringify(data));
+    xhr.onreadystatechange = function (evento) {
+      if (xhr.readyState === 4) {
+        marcas = JSON.parse(xhr.responseText);
+        marcas.forEach(function(marca){
+            console.log(marca.ID);
+        })
+  
+        
+      }else{
+        //$("#msg").text("Erro ao Executar a operação: Status:" + xhr.status);
+        alert("Erro ao Listar");
+      }
+    }
+
+  }
   
